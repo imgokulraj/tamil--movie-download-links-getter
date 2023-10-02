@@ -16,7 +16,7 @@ def searchMovie(searchText : str) -> str :
     all_results = parsed_html.select('#post-results a')
     result = []
     if len(all_results) == 0 : 
-        return "No results found for the search query"
+        return "No results found for the search " + searchText
 
     for i in range(min(3 , len(all_results))) : 
         movie_link = all_results[i].get('href')
@@ -44,4 +44,6 @@ def searchMovie(searchText : str) -> str :
             'movie-name' : movie_name , 
             'links' : final_links
         })
-    return json.dumps(result)
+    return result
+
+print(searchMovie('va'))

@@ -23,14 +23,16 @@ def main():
         if movie_name:
             # Call your Python function to fetch download links
             download_links = linksgetter.searchMovie(movie_name)
-
+            if type(download_links) is str : 
+                st.write("No results found for the movie")
+            else : 
             # Display download links
-            st.subheader("Download Links")
-            if download_links:
-                for idx, link in enumerate(download_links[:5], start=1):
-                    st.write(f"{idx}. [{link}]({link})")
-            else:
-                st.warning("No download links found for this movie.")
+                for movie_data in download_links:
+                    st.subheader(movie_data["movie-name"])
+                    for link_info in movie_data["links"]:
+                        st.write(f"Quality: {link_info['quality']}")
+                        st.write(f"Link: [{link_info['link']}]({link_info['link']})")
+                    st.markdown("---")  # Add a separator between movies
 
 if __name__ == "__main__":
     main()
